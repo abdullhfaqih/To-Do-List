@@ -1,0 +1,55 @@
+<div class="container pt-5">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+      <form method="post" action="/todo-list">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            name="todo"
+            id="data"
+            class="form-control"
+            placeholder="Add your todo list"
+            autocomplete="off"
+            autofocus
+            required />
+          <button class="btn bg-success text-white" type="submit">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-7">
+      <hr />
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+      <% if (lists.length < 1) { %>
+      <p>No To Do List yet</p>
+      <% } %>
+      <ul class="list-group">
+        <% lists.forEach(list => { %>
+        <li class="list-group-item d-flex justify-content-between">
+          <span>
+            <label class="form-check-label" for="firstCheckbox"
+              ><%= list.todo %></label
+            >
+          </span>
+          <span>
+            <form
+              action="/todo-list?_method=DELETE"
+              method="post"
+              class="d-inline">
+              <input type="hidden" name="_id" value="<%= list._id %>" />
+              <button type="submit" class="btn btn-danger badge">✕</button>
+            </form>
+            <a href="/todo-list/edit/<%= list._id %>" class="btn btn-info badge"
+              ><i class="bi bi-pencil-square"></i
+            ></a>
+          </span>
+        </li>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+</div>
